@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: plum;
+        }
+    </style>
+    <title>Washington Post Search Results</title>
+</head>
+<body>
+
+<h3>Washington Post Search</h3>
+
+<form action="{{ url_for('results') }}" name="search" method="post">
+    <label for="query">Query:</label>
+    <input type="text" id="query" name="query" size=50>
+    <input type="submit" value="Search"><br>
+    <input type="radio" name="options" id="bmdef" value="bmdef" checked> BM25 + default </input><br>
+    <input type="radio" name="options" id="bmcus" value="bmcus"> BM25 + custom </input><br>
+    <input type="radio" name="options" id="ft" value="ft"> Fasttext </input><br>
+    <input type="radio" name="options" id="sbert" value="sbert"> SBERT </input><br>
+</form>
+
+<h3>Search Results</h3>
+<h4>Query: {{query}}</h4>
+
+<ul>
+
+<ol start = {{ start }}>
+
+   {% for item in result %}
+       {% for key, val in item.items() %}
+
+        <dt><li>  <a href="{{ url_for('doc_data', doc_id=key) }}">{{ item[key]['title'] }}</li></a>
+            </dt>
+       <dd>{{ item[key]['content'][:150]|e}}</dd>
+           {% endfor %}
+{% endfor %}
+</ol>
+
+</ul>
+</form>
+</body>
+
+{% if hasnext %}
+<a href="{{ url_for('next_page', page_id= next_page, query_text=query)}} "><input type="submit" name="Next" value="Next"/>
+    <span class="a-letter-space"></span>
+    <span class="a-letter-space"></span>
+</a>
+{% endif %}
+</html>
+

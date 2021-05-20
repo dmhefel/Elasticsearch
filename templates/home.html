@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: lightskyblue;
+        }
+    </style>
+    <title>Washington Post Search</title>
+</head>
+<body>
+
+<h3>Washington Post Search</h3>
+
+<form action="{{ url_for('results') }}" name="search" method="post">
+    <label for="query">Query:</label>
+    <input type="text" id="query" name="query" size=50>
+    <input type="submit" value="Search"><br>
+
+<input type="radio" name="options" id="bmdef" value="bmdef" checked> BM25 + default </input><br>
+    <input type="radio" name="options" id="bmcus" value="bmcus"> BM25 + custom </input><br>
+    <input type="radio" name="options" id="ft" value="ft"> Fasttext </input><br>
+    <input type="radio" name="options" id="sbert" value="sbert"> SBERT </input><br>
+
+</form>
+
+
+</body>
+</html>
